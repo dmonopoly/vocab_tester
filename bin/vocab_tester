@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+$LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
+require 'vocab_tester'
+
+test = VocabTester::Test.new(STDOUT)
+at_exit { puts "\n***\n:)\n***" }
+test.start
+while guess = gets.chomp
+	game.guess guess
+end
