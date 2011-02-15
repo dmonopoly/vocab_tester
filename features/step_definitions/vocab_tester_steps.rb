@@ -22,7 +22,6 @@ When /^I start a test$/ do
 end
 
 Then /^the vocab file should be loaded$/ do
-	!@test.words.empty?
 end
 
 Then /^I should see "([^"]*)"$/ do |message|

@@ -1,0 +1,5 @@
+vocab_tester imports a file of vocab words and helps you learn them.
+It incorporates a queue to store words that you want to go back to later.
+
+This is a practical idea that (1) gives more practice for the craftsmanship movement as detailed
+in The RSpec Book and (2) results in a useful application.
