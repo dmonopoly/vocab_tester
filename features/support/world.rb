@@ -1,16 +1,9 @@
-=begin
-module WordsHelper
-	class Words < Array # acts as a test double
-		def initialize
-			@words = %w{ a few words }
-		end
-	end
-	
+module WordsHelper # not used...
 	def words
-		@words ||= Words.new
+		@words ||= %w[ some sample vocab words ]
 	end
 end
-=end
+
 module OutputHelper
 	class Output # acts as a test double
 		def messages

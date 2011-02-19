@@ -15,7 +15,7 @@ module VocabTester
 				Test.new(output)
 			end
 			
-			it "should give the word array words" do
+			it "should fill the word array" do
 				test.words.should_not be_empty
 				Test.new(output)
 			end
@@ -37,21 +37,20 @@ module VocabTester
 				test.start
 			end
 		
-			it "shows a word from the word list" do
-				pending "currently modifying the main method"
-				words = double('words')
-				words.should_receive(:sample).and_return('quixotic')
-				output.should_receive(:puts).with('quixotic')
-				test.start
-			end
-		
 			it "shows a > for the user to type after" do
 				output.should_receive(:puts).with(">")
 				test.start
 			end
-			
 		end
 		
+		describe "word list interactions" do
+			it "shows a word from the word list" do
+				test.words.should_receive(:sample).and_return('quixotic')
+				output.should_receive(:puts).with('quixotic')
+				
+				test.start
+			end
+		end
 	end
 	
 end

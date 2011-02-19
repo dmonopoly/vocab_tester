@@ -21,7 +21,6 @@ Then /^I should see the command info$/ do
 end
 
 Then /^I should see a word from the word list$/ do
-	pending "Haven't decided how to do this yet"
-  (output.messages & words).should have_at_least(1).common_word
+  (output.messages & @test.words).should have_at_least(1).common_word
 end
 
