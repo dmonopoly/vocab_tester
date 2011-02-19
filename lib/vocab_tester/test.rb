@@ -1,10 +1,12 @@
 module VocabTester
 	class Test
 		attr_reader :words # others = attr_accessor, attr_writer
+		attr_accessor :reply
 		
 		def initialize(output)
 			@words = read_file
 			@output = output
+			@reply = nil
 		end
 		
 		def start

@@ -3,3 +3,7 @@ It incorporates a queue to store words that you want to go back to later.
 
 This is a practical idea that (1) gives more practice for the craftsmanship movement as detailed
 in The RSpec Book and (2) results in a useful application.
+
+TODO:
+-remove dequeue command
+-add scenario to start test: start test without word file

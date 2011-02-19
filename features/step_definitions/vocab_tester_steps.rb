@@ -24,3 +24,17 @@ Then /^I should see a word from the word list$/ do
   (output.messages & @test.words).should have_at_least(1).common_word
 end
 
+## replies feature
+Given /^the test has started$/ do
+	@test = VocabTester::Test.new(output)
+	@test.start
+end
+
+When /^the learner marks the word as understood$/ do
+	@test.reply = "."
+end
+
+Then /^the word should be removed from the word list$/ do
+  pending # express the regexp above with the code you wish you had
+end
+
