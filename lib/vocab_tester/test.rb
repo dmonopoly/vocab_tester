@@ -1,12 +1,10 @@
 module VocabTester
 	class Test
-		#attr_accessor :words
-		attr_reader :words
-		#attr_writer :words
+		attr_reader :words # attr_accessor, attr_writer
 		
 		def initialize(output)
-			@output = output
 			@words = read_file
+			@output = output
 		end
 		
 		def start
@@ -16,8 +14,9 @@ module VocabTester
 		end
 		
 		private
+		
 			def put_random_word
-				@output.puts @words.sample
+				@output.puts(@words.sample)
 			end
 			
 			def put_initial_messages

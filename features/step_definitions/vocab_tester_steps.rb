@@ -1,17 +1,3 @@
-class Output
-	def messages
-		@messages ||= []
-	end
-	
-	def puts(message)
-		messages << message
-	end
-end
-
-def output
-	@output ||= Output.new
-end
-
 ## starts test feature
 Given /^I have not started a test$/ do
 end
@@ -22,7 +8,7 @@ When /^I start a test$/ do
 end
 
 Then /^the vocab file should be loaded$/ do
-	# put something here?
+	@test.words.should_not be_empty
 end
 
 Then /^I should see "([^"]*)"$/ do |message|
@@ -35,7 +21,7 @@ Then /^I should see the command info$/ do
 end
 
 Then /^I should see a word from the word list$/ do
-  pending # express the regexp above with the code you wish you had
-  output.messages.should include(some_word_in_the_list)
+	pending "Haven't decided how to do this yet"
+  (output.messages & words).should have_at_least(1).common_word
 end
 
