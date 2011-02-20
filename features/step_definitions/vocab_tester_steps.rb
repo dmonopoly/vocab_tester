@@ -12,7 +12,7 @@ Then /^the vocab file should be loaded$/ do
 end
 
 Then /^I should see "([^"]*)"$/ do |message|
-	output.messages.should include(message) # output is a METHOD that returns @output / Output.new
+	output.messages.should include(message)
 end
 
 Then /^I should see the command info$/ do
@@ -31,10 +31,10 @@ Given /^the test has started$/ do
 end
 
 When /^the learner marks the word as understood$/ do
-	@test.reply = "."
+	@understood = lambda { @test.reply('.') }
 end
 
 Then /^the word should be removed from the word list$/ do
-  pending # express the regexp above with the code you wish you had
+	@understood.should change(@test.words, :count).by(-1)
 end
 

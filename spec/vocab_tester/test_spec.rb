@@ -51,6 +51,25 @@ module VocabTester
 				test.start
 			end
 		end
+		
+		describe "a user" do
+			context "who marks the word as understood with '.'" do
+				it "should decrease the size of the word list by 1" do
+					lambda { test.reply('.') }.should change(test.words, :count).by(-1)
+				end
+				
+				it "should remove the word from the word list" do
+					test.current_word.stub('xyz')
+					test.words.should_not include(test.current_word)
+
+					test.start
+					test.reply('.')
+				end
+				
+			end	
+			
+		end
+		
 	end
 	
 end

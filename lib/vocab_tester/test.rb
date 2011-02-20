@@ -1,18 +1,22 @@
 module VocabTester
 	class Test
 		attr_reader :words # others = attr_accessor, attr_writer
-		attr_accessor :reply
 		
 		def initialize(output)
 			@words = read_file
 			@output = output
-			@reply = nil
 		end
 		
 		def start
 			put_initial_messages
 			put_random_word
 			@output.puts '>'
+		end
+		
+		def reply(input)
+			if input == '.'
+				@words.delete_at 0
+			end
 		end
 		
 		private

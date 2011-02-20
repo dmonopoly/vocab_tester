@@ -3,5 +3,8 @@ $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 require 'vocab_tester'
 
 test = VocabTester::Test.new(STDOUT)
-at_exit { puts ":)" }
 test.start
+while input = gets
+	input.chomp!
+	reply(input)
+end

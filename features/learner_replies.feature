@@ -5,7 +5,8 @@ Feature: learner replies with a command
 	Commands include:
 	".", which means the user understands the word, should not see this word again,
 	and should move on to a new word.
-	"e", which means enqueue, so the word should be added to the queue.
+	"e", which means enqueue, so the word should be added to the queue. The next word should 
+	appear once the current word is enqueued.
 	
 	Scenario: word understood
 		Given the test has started
