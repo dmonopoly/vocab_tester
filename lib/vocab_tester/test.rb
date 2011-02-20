@@ -1,12 +1,13 @@
 module VocabTester
 	class Test
-		attr_reader :words # others = attr_accessor, attr_writer
-		attr_reader :current_word
+		# others = attr_accessor, attr_writer
+		attr_reader :words, :queue, :current_word
 		
 		def initialize(output)
 			@words = read_file
 			@output = output
 			@current_word = next_word
+			@queue = []
 		end
 		
 		def start
@@ -17,15 +18,26 @@ module VocabTester
 		
 		def reply(input)
 			if input == '.'
-				@words.delete(@current_word)
+				remove_from_words(@current_word)
+			elsif input == 'e'
+				add_to_queue(@current_word)
 			end
 		end
 		
-		def next_word
-			@words.sample if @words
-		end
-		
 		private
+			def next_word # from words list, not queue
+				@words.sample if @words
+			end
+			
+			def remove_from_words item
+				@words.delete item
+			end
+			
+			def add_to_queue item
+				@queue.push item
+				remove_from_words item
+			end
+			
 			def put_random_word
 				@current_word = next_word
 				@output.puts(@current_word)

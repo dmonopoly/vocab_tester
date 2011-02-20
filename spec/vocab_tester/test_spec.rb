@@ -48,7 +48,7 @@ module VocabTester
 			
 			describe "word list interactions" do
 				it "shows a word from the word list" do
-					test.should_receive(:next_word).and_return('some_word') # not behavior-based!
+					test.should_receive(:next_word).and_return('some_word')
 					output.should_receive(:puts).with('some_word')
 			
 					test.start
@@ -66,11 +66,33 @@ module VocabTester
 				end
 				
 				it "should remove the word from the word list" do
-					old_word = test.current_word
+					test.should_receive(:remove_from_words).with(test.current_word)
 					test.reply('.')
-					test.words.should_not include(old_word)
 				end
 				
+				it "should not change the queue" do
+					lambda { test.reply '.' }.should_not change(test.queue, :inspect)
+				end
+			end
+			
+			context "who marks the word to be enqueued with 'e'" do
+				it "should increase the size of the queue by 1" do
+					lambda { test.reply('e') }.should change(test.queue, :count).by(1)
+				end
+				
+				it "should add the current word to the queue" do
+					test.should_receive(:add_to_queue).with(test.current_word)
+					test.reply('e')
+				end
+				
+				it "should decrease the size of the word list by 1" do
+					lambda { test.reply('e') }.should change(test.words, :count).by(-1)
+				end
+				
+				it "should remove the word from the word list" do
+					test.should_receive(:remove_from_words).with(test.current_word)
+					test.reply('e')
+				end
 			end
 		end
 		

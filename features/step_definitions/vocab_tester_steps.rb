@@ -26,8 +26,16 @@ end
 
 ## replies feature
 Given /^the test has started$/ do
-	@test = VocabTester::Test.new(output)
-	@test.start
+	When 'I start a test'
+end
+
+Given /^the word is from the word list$/ do
+  pending
+  the given already does this... :/
+end
+
+Given /^the word is from the queue$/ do
+  pending # express the regexp above with the code you wish you had
 end
 
 When /^the learner marks the word as understood$/ do
@@ -36,5 +44,13 @@ end
 
 Then /^the word should be removed from the word list$/ do
 	@test.words.should_not include(@test.current_word)
+end
+
+When /^the learner marks the word to be enqueued$/ do
+  @test.reply('e')
+end
+
+Then /^the word should be enqueued$/ do
+	@test.queue.should include(@test.current_word)	
 end
 
