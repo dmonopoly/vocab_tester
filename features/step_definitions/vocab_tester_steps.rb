@@ -16,8 +16,8 @@ Then /^I should see "([^"]*)"$/ do |message|
 end
 
 Then /^I should see the command info$/ do
-	Then 'I should see "| Commands:"'
-	And 'I should see "| . -> next word, I understand this one; e -> enqueue"'
+	Then 'I should see "Commands:"'
+	And 'I should see ". -> next word, I understand this one; e -> enqueue"'
 end
 
 Then /^I should see a word from the word list$/ do

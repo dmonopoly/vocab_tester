@@ -1,9 +1,3 @@
-module WordsHelper # not used...
-	def words
-		@words ||= %w[ some sample vocab words ]
-	end
-end
-
 module OutputHelper
 	class Output # acts as a test double
 		def messages

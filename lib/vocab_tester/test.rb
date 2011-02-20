@@ -33,8 +33,9 @@ module VocabTester
 			
 			def put_initial_messages
 				@output.puts "-Welcome to Vocab Tester-"
-				@output.puts "| Commands:"
-				@output.puts "| . -> next word, I understand this one; e -> enqueue"
+				@output.puts "Commands:"
+				@output.puts ". -> next word, I understand this one; e -> enqueue"
+				@output.puts ''
 			end
 			
 			def read_file

@@ -31,12 +31,12 @@ module VocabTester
 				end
 		
 				it "shows the commands heading" do
-					output.should_receive(:puts).with("| Commands:")
+					output.should_receive(:puts).with("Commands:")
 					test.start
 				end
 		
 				it "shows the commands" do
-					output.should_receive(:puts).with("| . -> next word, I understand this one; e -> enqueue")
+					output.should_receive(:puts).with(". -> next word, I understand this one; e -> enqueue")
 					test.start
 				end
 		

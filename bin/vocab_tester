@@ -4,7 +4,7 @@ require 'vocab_tester'
 
 test = VocabTester::Test.new(STDOUT)
 test.start
-while input = gets
-	input.chomp!
+while 0
+	input = gets.chomp
 	reply(input)
 end
