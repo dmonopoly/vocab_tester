@@ -16,8 +16,8 @@ Then /^I should see "([^"]*)"$/ do |message|
 end
 
 Then /^I should see the command info$/ do
-	Then 'I should see "Commands:"'
-	And 'I should see ". -> next word, I understand this one; e -> enqueue; d -> dequeue"'
+	Then 'I should see "| Commands:"'
+	And 'I should see "| . -> next word, I understand this one; e -> enqueue"'
 end
 
 Then /^I should see a word from the word list$/ do
@@ -31,10 +31,10 @@ Given /^the test has started$/ do
 end
 
 When /^the learner marks the word as understood$/ do
-	@understood = lambda { @test.reply('.') }
+	@test.reply('.')
 end
 
 Then /^the word should be removed from the word list$/ do
-	@understood.should change(@test.words, :count).by(-1)
+	@test.words.should_not include(@test.current_word)
 end
 
