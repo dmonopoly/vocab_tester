@@ -4,7 +4,8 @@ require 'vocab_tester'
 
 test = VocabTester::Test.new(STDOUT)
 test.start
-while 0
+while !test.words.empty? || !test.queue.empty?
 	input = gets.chomp
-	reply(input)
+	test.reply(input)
 end
+

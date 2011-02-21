@@ -12,35 +12,46 @@ module VocabTester
 		
 		def start
 			put_initial_messages
-			put_random_word
-			@output.puts '>'
+			put_word_from_word_list
+			@output.print '>'
 		end
 		
 		def reply(input)
 			if input == '.'
 				remove_from_words(@current_word)
+				put_random_word
 			elsif input == 'e'
 				add_to_queue(@current_word)
+				if @words.empty?
+					dequeue
+				else
+					put_random_word
+				end
 			end
+		end
+		
+		def dequeue
+			@current_word = @queue.delete_at(0)
+			@output.puts @current_word
+		end
+			
+		def remove_from_words item
+			@words.delete(item) if @words.include? item
+		end
+		
+		def add_to_queue item
+			@queue.push item
+			remove_from_words item
+		end
+		
+		def put_word_from_word_list
+			@current_word = next_word
+			@output.puts(@current_word)
 		end
 		
 		private
 			def next_word # from words list, not queue
-				@words.sample if @words
-			end
-			
-			def remove_from_words item
-				@words.delete item
-			end
-			
-			def add_to_queue item
-				@queue.push item
-				remove_from_words item
-			end
-			
-			def put_random_word
-				@current_word = next_word
-				@output.puts(@current_word)
+				@words.sample if @words && !@words.empty?
 			end
 			
 			def put_initial_messages

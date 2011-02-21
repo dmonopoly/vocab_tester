@@ -41,7 +41,7 @@ module VocabTester
 				end
 		
 				it "shows a > for the user to type after" do
-					output.should_receive(:puts).with(">")
+					output.should_receive(:print).with(">")
 					test.start
 				end
 			end
@@ -60,42 +60,70 @@ module VocabTester
 			let(:output) { double('output').as_null_object }
 			let(:test) { Test.new(output) }
 			
-			context "who marks the word as understood with '.'" do
-				it "should decrease the size of the word list by 1" do
-					lambda { test.reply('.') }.should change(test.words, :count).by(-1)
+			context "who sees a word from the word list" do
+			
+				context "and marks the word as understood with '.'" do
+					it "should decrease the size of the word list by 1" do
+						lambda { test.reply('.') }.should change(test.words, :count).by(-1)
+					end
+				
+					it "should remove the word from the word list" do
+						test.should_receive(:remove_from_words).with(test.current_word)
+						test.reply('.')
+					end
+				
+					it "should not change the queue" do
+						lambda { test.reply '.' }.should_not change(test.queue, :inspect)
+					end
+				end
+			
+				context "and marks the word to be enqueued with 'e'" do
+					it "should increase the size of the queue by 1" do
+						lambda { test.reply('e') }.should change(test.queue, :count).by(1)
+					end
+				
+					it "should add the current word to the queue" do
+						test.should_receive(:add_to_queue).with(test.current_word)
+						test.reply('e')
+					end
+				
+					it "should decrease the size of the word list by 1" do
+						lambda { test.reply('e') }.should change(test.words, :count).by(-1)
+					end
+				
+					it "should remove the word from the word list" do
+						test.should_receive(:remove_from_words).with(test.current_word)
+						test.reply('e')
+					end
 				end
 				
-				it "should remove the word from the word list" do
-					test.should_receive(:remove_from_words).with(test.current_word)
-					test.reply('.')
+			end
+			
+			context "who sees a word from the queue" do
+				before(:each) do
+					test.words.each { |word|
+						test.add_to_queue word
+					}
+					test.dequeue
+				end
+			
+				context "and marks the word as understood with '.'" do
+					it "should mean the word is not in the queue" do
+						test.queue.should_not include(test.current_word)
+						test.reply '.'
+					end
 				end
 				
-				it "should not change the queue" do
-					lambda { test.reply '.' }.should_not change(test.queue, :inspect)
+				context "and marks the word to be enqueued with 'e'" do
+					it "should add the word to the queue" do
+						pending
+						test.queue.should include(test.current_word)
+						test.reply('e')
+					end
 				end
 			end
 			
-			context "who marks the word to be enqueued with 'e'" do
-				it "should increase the size of the queue by 1" do
-					lambda { test.reply('e') }.should change(test.queue, :count).by(1)
-				end
-				
-				it "should add the current word to the queue" do
-					test.should_receive(:add_to_queue).with(test.current_word)
-					test.reply('e')
-				end
-				
-				it "should decrease the size of the word list by 1" do
-					lambda { test.reply('e') }.should change(test.words, :count).by(-1)
-				end
-				
-				it "should remove the word from the word list" do
-					test.should_receive(:remove_from_words).with(test.current_word)
-					test.reply('e')
-				end
-			end
-		end
-		
+		end # end user
 	end
 	
 end

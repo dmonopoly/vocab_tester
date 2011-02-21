@@ -7,6 +7,10 @@ module OutputHelper
 		def puts(message)
 			messages << message
 		end
+		
+		def print(message)
+			messages << message.chomp
+		end
 	end
 
 	def output

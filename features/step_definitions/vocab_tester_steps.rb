@@ -30,12 +30,11 @@ Given /^the test has started$/ do
 end
 
 Given /^the word is from the word list$/ do
-  pending
-  the given already does this... :/
+	# start a test already ensures the word is from the word list
 end
 
-Given /^the word is from the queue$/ do
-  pending # express the regexp above with the code you wish you had
+When /^the word is from the queue$/ do
+	@test.dequeue
 end
 
 When /^the learner marks the word as understood$/ do
@@ -46,6 +45,10 @@ Then /^the word should be removed from the word list$/ do
 	@test.words.should_not include(@test.current_word)
 end
 
+Then /^the size of the queue should not change$/ do
+	@test.queue.count.should == 0
+end
+
 When /^the learner marks the word to be enqueued$/ do
   @test.reply('e')
 end
@@ -53,4 +56,9 @@ end
 Then /^the word should be enqueued$/ do
 	@test.queue.should include(@test.current_word)	
 end
+
+Then /^the word should be removed from the queue$/ do
+	@test.queue.should_not include(@test.current_word)
+end
+
 
