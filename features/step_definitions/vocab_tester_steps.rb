@@ -1,4 +1,4 @@
-## starts test feature
+## Starts test feature
 Given /^I have not started a test$/ do
 end
 
@@ -24,17 +24,20 @@ Then /^I should see a word from the word list$/ do
   (output.messages & @test.words).should have_at_least(1).common_word
 end
 
-## replies feature
+## User interaction feature
 Given /^the test has started$/ do
 	When 'I start a test'
 end
 
 Given /^the word is from the word list$/ do
-	# start a test already ensures the word is from the word list
+  # start test already ensures these contents, but this is implemented anyway to reduce dependencies
+  # word list must already have words b/c of start test... have this clarified in the other feature!
+	@test.put_word_from_word_list
 end
 
-When /^the word is from the queue$/ do
-	@test.dequeue
+And /^the word is from the queue$/ do # so the queue must have words!
+	[ 'sample','words','in','queue' ].each { |word| @test.enqueue word }
+	@test.put_word_from_queue
 end
 
 When /^the learner marks the word as understood$/ do
@@ -45,8 +48,8 @@ Then /^the word should be removed from the word list$/ do
 	@test.words.should_not include(@test.current_word)
 end
 
-Then /^the size of the queue should not change$/ do
-	@test.queue.count.should == 0
+Then /^the word should not be enqueued$/ do
+  Then 'the word should be dequeued'
 end
 
 When /^the learner marks the word to be enqueued$/ do
@@ -54,11 +57,10 @@ When /^the learner marks the word to be enqueued$/ do
 end
 
 Then /^the word should be enqueued$/ do
-	@test.queue.should include(@test.current_word)	
+	@test.queue.should include(@test.current_word)
 end
 
-Then /^the word should be removed from the queue$/ do
-	@test.queue.should_not include(@test.current_word)
+Then /^the word should be dequeued$/ do
+  @test.queue.should_not include(@test.current_word)
 end
-
 
