@@ -17,11 +17,15 @@ module VocabTester
 
 		def reply(input) # program's reply based on user's input
 			if input == '.'
-        # ???
+        dequeue(@current_word) if @queue.include? @current_word
 			elsif input == 'e'
 				enqueue(@current_word)
 			end
 		end
+
+    def dequeue item
+      @queue.delete item
+    end
 
 		def enqueue item
 			@queue.push item
@@ -39,12 +43,12 @@ module VocabTester
 		end
 
 		def remove_from_word_list item
-			@words.delete(item) if @words.include? item
+			@words.delete(item)
 		end
 
 		private
       def word_from_word_list
-        @words.sample if @words && !@words.empty?
+        @words.sample
       end
 
 			def put_initial_messages

@@ -48,8 +48,12 @@ Then /^the word should be removed from the word list$/ do
 	@test.words.should_not include(@test.current_word)
 end
 
-Then /^the word should not be enqueued$/ do
-  Then 'the word should be dequeued'
+Given /^the queue has (\d+) words$/ do |num|
+  num.to_i.times { @test.enqueue 'a' }
+end
+
+Then /^the queue should have (\d+) words$/ do |num|
+  @test.queue.should have(num.to_i).terms
 end
 
 When /^the learner marks the word to be enqueued$/ do
@@ -62,5 +66,9 @@ end
 
 Then /^the word should be dequeued$/ do
   @test.queue.should_not include(@test.current_word)
+end
+
+Then /^the word should remain enqueued$/ do
+  Then 'the word should be enqueued'
 end
 

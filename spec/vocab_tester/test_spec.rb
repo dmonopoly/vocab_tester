@@ -72,28 +72,42 @@ module VocabTester
 					lambda { test.put_word_from_word_list }.should change(test.words, :count).by(-1)
 				end
 
-				context "and marks the word as understood with '.'" do
-					it "should not change the queue" do
-						lambda { test.reply '.' }.should_not change(test.queue, :inspect)
-					end
-				end
+        context "and has 5 words in the queue" do
+          before(:each) do
+            5.times { test.enqueue 'a' }
+          end
 
-				context "and marks the word to be enqueued with 'e'" do
-					it "should increase the size of the queue by 1" do
-						lambda { test.reply('e') }.should change(test.queue, :count).by(1)
-					end
+				  context "and marks the word as understood with '.'" do
+					  it "should keep the queue at size 5" do
+						  test.reply '.'
+						  test.queue.size.should be 5 # be careful with order
+					  end
 
-					it "should add the current word to the queue" do
-						test.should_receive(:enqueue).with(test.current_word)
-						test.reply('e')
-					end
-				end
+					  it "should not call dequeue" do
+					    test.should_not_receive(:dequeue)
+					    test.reply '.'
+  			    end
+				  end
+
+				  context "and marks the word to be enqueued with 'e'" do
+				    it "should increase the queue's size to 6" do
+				      test.reply 'e'
+				      test.queue.size.should be 6 # be careful... you said "be", not "increase..."
+  		      end
+
+					  it "should add the current word to the queue" do
+						  test.should_receive(:enqueue).with(test.current_word)
+						  test.reply('e')
+					  end
+				  end
+
+        end
 
 			end
 
 			context "who sees a word from the queue" do
 				before(:each) do
-					test.words.each { |word|
+					test.words.each { |word| # filling up the queue
 						test.enqueue word
 					}
 					test.put_word_from_queue
@@ -101,16 +115,14 @@ module VocabTester
 
 				context "and marks the word as understood with '.'" do
 					it "should remove the word from the queue" do
-					  pending
-						test.queue.should_not include(test.current_word)
+						test.should_receive(:dequeue).with(test.current_word)
 						test.reply '.'
 					end
 				end
 
 				context "and marks the word to be enqueued with 'e'" do
 					it "should add the word to the queue" do
-						pending
-						test.queue.should include(test.current_word)
+					  test.should_receive(:enqueue).with(test.current_word)
 						test.reply('e')
 					end
 				end

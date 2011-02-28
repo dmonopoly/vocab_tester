@@ -16,8 +16,9 @@ Feature: learner replies to a certain word with a command
 	Scenario: word from word list understood
 		Given the test has started
 		And the word is from the word list
+		And the queue has 5 words
 		When the learner marks the word as understood
-		Then the word should not be enqueued
+		Then the queue should have 5 words
 
 	Scenario: word from word list to be enqueued
 		Given the test has started
@@ -35,5 +36,5 @@ Feature: learner replies to a certain word with a command
 		Given the test has started
 		And the word is from the queue
 		When the learner marks the word to be enqueued
-		Then the word should be enqueued
+		Then the word should remain enqueued
 
