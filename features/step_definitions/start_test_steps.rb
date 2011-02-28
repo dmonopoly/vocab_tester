@@ -2,7 +2,7 @@
 Given /^I have not started a test$/ do
 end
 
-When /^I start a test$/ do
+Given /^the test has started$/ do
 	@test = VocabTester::Test.new(output)
 	@test.start
 end

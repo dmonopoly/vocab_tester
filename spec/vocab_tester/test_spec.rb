@@ -48,7 +48,25 @@ module VocabTester
 					test.start
 				end
 			end
-		end
+		end # end 'start'
+
+    describe 'interface' do
+			let(:output) { double('output').as_null_object }
+			let(:test) { Test.new(output) }
+		  before(:each) do
+		    test.start
+      end
+
+      it "should show a > after a word is displayed from the word list" do
+				output.should_receive(:print).with(">")
+        test.put_word_from_word_list
+      end
+
+      it "should show a > after a word is displayed from the queue" do
+        output.should_receive(:print).with(">")
+        test.put_word_from_queue
+      end
+    end
 
 	end
 

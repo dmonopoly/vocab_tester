@@ -12,7 +12,6 @@ module VocabTester
 		def start
 			put_initial_messages
 			put_word_from_word_list
-			@output.print '>'
 		end
 
 		def reply(input) # program's reply based on user's input
@@ -34,16 +33,23 @@ module VocabTester
 		def put_word_from_queue
 			@current_word = @queue.first
 			@output.puts @current_word
-		end
-
-		def put_word_from_word_list
-			@current_word = word_from_word_list
-			@output.puts(@current_word)
-			remove_from_word_list(@current_word)
+			@output.print '>'
 		end
 
 		def remove_from_word_list item
 			@words.delete(item)
+		end
+
+    # not used anywhere except in features...
+		def add_to_word_list item
+		  @words.push item
+    end
+
+		def put_word_from_word_list
+			@current_word = word_from_word_list
+			@output.puts(@current_word)
+			@output.print '>'
+			remove_from_word_list(@current_word)
 		end
 
 		private

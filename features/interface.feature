@@ -4,8 +4,13 @@ Feature: clear interface
     As a learner
     I want to see clarification marks
 
-    Scenario: indicator for user to type (>)
+    Scenario: word from word list just displayed
         Given the test has started
-        When the user can type
-        Then I should see ">"
+        When the word is from the word list
+        Then I should see ">" last
+
+    Scenario: word from queue just displayed
+        Given the test has started
+        When the word is from the queue
+        Then I should see ">" last
 

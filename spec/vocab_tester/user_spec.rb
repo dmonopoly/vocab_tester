@@ -55,7 +55,7 @@ module VocabTester
 
 	    context "who sees a word from the queue (which has 5 words)" do
 		    before(:each) do
-			    %w[ word1 word2 word3 word4 word5].each { |word|
+			    %w[ word_1 word_2 word_3 word_4 word_5 ].each { |word|
 				    test.enqueue word # filling up the queue
 			    }
 			    test.put_word_from_queue

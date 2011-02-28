@@ -6,7 +6,7 @@ Feature: learner starts test
 
 	Scenario: start test
 		Given I have not started a test
-		When I start a test
+		When the test has started
 		Then the vocab file should be loaded
 		And the queue should have 0 words
 		And I should see "-Welcome to Vocab Tester-"
