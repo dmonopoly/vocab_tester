@@ -1,3 +1,4 @@
+## Word flow feature
 Given /^the word list has words$/ do
 	# must have words b/c just started
 end
