@@ -28,3 +28,8 @@ Then /^the word should remain enqueued$/ do
   Then 'the word should be enqueued'
 end
 
+Given /^the word list has words$/ do
+  @test.words.clear
+  [ 'word_1','word_2','word_3','word_4' ].each { |word| @test.add_to_word_list word }
+end
+

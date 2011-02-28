@@ -20,7 +20,19 @@ module VocabTester
 			elsif input == 'e'
 				enqueue(@current_word)
 			end
+			put_next_word
 		end
+
+    def put_next_word
+      if !@words.empty?
+        put_word_from_word_list
+      elsif !@queue.empty?
+        put_word_from_queue
+      else
+        puts "Congratulations! You have exhausted all the words."
+        return -1
+      end
+    end
 
     def dequeue item
       @queue.delete item
@@ -69,7 +81,8 @@ module VocabTester
 					array = []
 					while line = file.gets
 						line.chomp!
-						array.push(line)
+						line.strip! # just added strip
+						array.push(line) unless line == '' # just added this unless condition
 					end
 					array
 				}
