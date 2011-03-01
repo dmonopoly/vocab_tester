@@ -17,20 +17,30 @@ module VocabTester
 		def reply(input) # program's reply based on user's input
 			if input == '.'
         dequeue(@current_word) if @queue.include? @current_word
+        put_next_word
 			elsif input == 'e'
-				enqueue(@current_word)
+				if !@queue.include? @current_word
+				  enqueue(@current_word)
+	      else
+		      dequeue(@current_word)
+		      enqueue(@current_word)
+        end
+        put_next_word
+      else
+        @output.puts 'Improper command'
+        @output.puts @current_word
 			end
-			put_next_word
 		end
 
-    def put_next_word
+    def put_next_word # issue: calling this in the reply method changes @current_word = bad for features...
       if !@words.empty?
         put_word_from_word_list
       elsif !@queue.empty?
+        puts "-->#{@queue.inspect}"
         put_word_from_queue
       else
         puts "Congratulations! You have exhausted all the words."
-        return -1
+        return -1 # This closes the program (see bin/vocab_tester)
       end
     end
 

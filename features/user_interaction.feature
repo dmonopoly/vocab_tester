@@ -38,3 +38,9 @@ Feature: learner replies to a certain word with a command
 		When the learner marks the word to be enqueued
 		Then the word should remain enqueued
 
+    Scenario: improper command from learner
+		Given the test has started
+		When the learner makes an improper command
+		Then I should see "Improper command"
+		And the previous word should be shown again
+

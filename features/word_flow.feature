@@ -26,6 +26,7 @@ Feature: word display from lists
 		But the queue has words
 		When the next word is to be shown
 		Then the next word should come from the queue
+		And the next word should be from index 0
 
 	Scenario: word list and queue are both empty
 		Given the test has started

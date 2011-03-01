@@ -7,3 +7,7 @@ When /^the learner marks the word to be enqueued$/ do
   @test.reply('e')
 end
 
+When /^the learner makes an improper command$/ do
+  @test.reply('e.')
+end
+

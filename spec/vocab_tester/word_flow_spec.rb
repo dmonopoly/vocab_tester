@@ -6,13 +6,14 @@ module VocabTester
 	    let(:output) { double('output').as_null_object }
 	    let(:test) { Test.new(output) }
 
-      context "when word list has 1 word ('word_1')" do
+      context "when word list has 1 word ('book')" do
         before(:each) do
           test.words.clear
-          test.add_to_word_list 'word_1'
+          test.add_to_word_list 'book'
         end
 
   	    it "should show this word from the word list" do
+          pending
           output.should_receive(:puts).with('word_1')
 	      end
 

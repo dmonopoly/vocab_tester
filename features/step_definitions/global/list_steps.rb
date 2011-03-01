@@ -33,3 +33,9 @@ Given /^the word list has words$/ do
   [ 'word_1','word_2','word_3','word_4' ].each { |word| @test.add_to_word_list word }
 end
 
+Then /^the previous word should be shown again$/ do
+  puts "-->#{output.messages.inspect}"
+  puts "-->#{@current_word}"
+	output.messages.last.should == @current_word
+end
+

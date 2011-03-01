@@ -80,6 +80,37 @@ module VocabTester
 		    end
 	    end
 
+      context "who sees the word 'book' from the word list" do
+        before(:each) do
+          test.words.clear
+          test.add_to_word_list 'book'
+          test.put_word_from_word_list # must return 'book'
+        end
+
+        context "and makes an improper command ('e.')" do
+          it "should show the word 'book' again" do
+            output.should_receive(:puts).with('book')
+            test.reply 'e.'
+          end
+        end
+      end
+
+      context "who sees the word 'book' from the queue" do
+        before(:each) do
+          test.queue.clear
+          test.enqueue 'book'
+          test.put_word_from_queue # must return 'book'
+        end
+
+        context "and makes an improper command ('e.')" do
+          it "should show the word 'book' again" do
+            output.should_receive(:puts).with('book')
+            test.reply 'e.'
+          end
+        end
+      end
+
+
 	  end # end user
   end
 
